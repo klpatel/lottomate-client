@@ -1,0 +1,41 @@
+<mat-sidenav-container class="app-sidenav-container">
+
+    <mat-sidenav #sidenav class="app-sidenav mat-elevation-z10" [opened]="!isScreenSmall"
+        [mode]="isScreenSmall ? 'over' : 'side'">
+
+        <mat-toolbar color="primary">
+            Food & Liquor
+        </mat-toolbar>
+        <mat-list>
+            <a class="anchor-tag" *ngFor="let navItem of mainMenuItems"
+                   md-list-item
+                   md-ripple
+                   [style.position]="'relative'"
+                   routerLinkActive="selected"
+                   [routerLink]="[navItem.path]">
+                    <!--<md-icon *ngIf="navItem.icon">{{navItem.icon}}</md-icon>-->
+                    <span>{{navItem.title}}</span> <br><br>
+                </a>
+            <!-- <mat-list-item>
+                <a matLine routerLink="dailygamesales" routerLinkActive="active">
+                    <div class="menu-title">Instance Daily Game Sales</div>
+                </a>
+            </mat-list-item>
+            <mat-list-item>
+                <a  matLine routerLink="welcomedashboard" routerLinkActive="active">
+                    <div class="menu-title">Instance Daily Total Sales</div>
+                </a>
+            </mat-list-item>
+            <mat-list-item>Daily Sales Report</mat-list-item>
+            <mat-list-item>
+                <a  matLine routerLink="registerUser" routerLinkActive="active">
+                    <div class="menu-title">Register User</div>
+                </a>
+            </mat-list-item> -->
+        </mat-list>
+    </mat-sidenav>
+    <app-toolbar (toggleSidenav)="sidenav.toggle()"></app-toolbar>
+    <div class="wrapper">
+        <router-outlet></router-outlet>
+    </div>
+</mat-sidenav-container>

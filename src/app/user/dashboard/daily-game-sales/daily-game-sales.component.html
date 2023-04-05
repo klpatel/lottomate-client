@@ -1,0 +1,130 @@
+<div class="sales-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <!-- <form #salesForm="ngForm" (submit)="save();" novalidate> -->
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title class="label-card-title">Instance Daily Sales</mat-card-title>
+        </mat-card-header>
+        <span><br></span>
+        <mat-card-content>
+            <div fxLayout="row">
+                <div fxLayout="column">
+                    <mat-card-subtitle class="label-store">
+                        Store : {{gameSalesMaster?.storeName}}
+                    </mat-card-subtitle>
+                </div>
+                <div fxLayout="column">
+                    <mat-card-subtitle class="label-container">
+                        Opened By : {{gameSalesMaster?.openUserName}}
+                    </mat-card-subtitle>
+                    <mat-card-subtitle class="label-container">
+                        Closed By : {{gameSalesMaster?.closeUserName}}
+                    </mat-card-subtitle>
+                    <mat-card-subtitle class="label-container">
+                        Last Updated : {{gameSalesMaster?.transactionDate | date:'short'}}
+                    </mat-card-subtitle>
+                </div>
+            </div>
+        </mat-card-content>
+        
+
+
+            <div class="game-container" *ngIf="gameSalesMaster?.salesDetail?.length > 0">
+                <mat-table #table [dataSource]="dataSource">
+
+                    <!-- Id Column -->
+                    <ng-container matColumnDef="no">
+                        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+                        <mat-cell *matCellDef="let element;let rowIdx = index;"> {{rowIdx+1}} </mat-cell>
+                        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                    </ng-container>
+
+                    <!-- GameBookId Column -->
+                    <ng-container matColumnDef="instanceGameBookId">
+                        <mat-header-cell *matHeaderCellDef> GameBookId </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.instanceGameBookId}} </mat-cell>
+                        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                    </ng-container>
+
+                    <!-- GameName Column -->
+                    <ng-container matColumnDef="gameName">
+                        <mat-header-cell *matHeaderCellDef> GameName </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.gameName}} </mat-cell>
+                        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                    </ng-container>
+
+                    <!-- Price Column -->
+                    <ng-container matColumnDef="price">
+                        <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.price | currency}} </mat-cell>
+                        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                    </ng-container>
+
+
+                    <!-- OpenNo Column -->
+                    <ng-container matColumnDef="openNo">
+                        <mat-header-cell *matHeaderCellDef> OpenNo </mat-header-cell>
+                        <mat-cell *matCellDef="let element; let rowIdx = index;">
+                            <mat-form-field floatLabel="never">
+                                <input type="number" #openNo="ngModel" name="txtOpenNo{{rowIdx}}" matInput
+                                    [value]="element.openNo" required min="0" max="100" appNegativeNumberValidator
+                                    [(ngModel)]="element.openNo">
+                                <mat-error *ngIf="openNo?.invalid && (openNo?.dirty || openNo?.touched)">
+                                    <div *ngIf="openNo?.errors.required">required</div>
+                                    <div *ngIf="openNo?.errors.appNegativeNumberValidator">Only +ve no.</div>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-cell>
+                        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                    </ng-container>
+
+                    <!-- CloseNo Column -->
+                    <ng-container matColumnDef="closeNo">
+                        <mat-header-cell *matHeaderCellDef> CloseNo </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <mat-form-field floatLabel="never">
+                                <input type="number" matInput [value]="element.closeNo" required min="0" max="100"
+                                    [(ngModel)]="element.closeNo">
+                            </mat-form-field>
+                        </mat-cell>
+                        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                    </ng-container>
+
+                    <!-- TotalSale Column -->
+                    <ng-container matColumnDef="totalSale">
+                        <mat-header-cell *matHeaderCellDef> TotalSale </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            {{(element.closeNo - element.openNo)}}
+                        </mat-cell>
+                        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                    </ng-container>
+
+                    <!-- TotalSalePrice Column -->
+                    <ng-container matColumnDef="totalSalePrice">
+                        <mat-header-cell *matHeaderCellDef> TotalSalePrice </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            {{element.price * (element.closeNo - element.openNo) | currency}}
+                        </mat-cell>
+                        <mat-footer-cell *matFooterCellDef>
+                            Total: {{ calculateTotal() }}
+                            TotalPrice: {{ calculateTotalPrice() | currency }}
+                        </mat-footer-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    <mat-footer-row class="sticky-footer" *matFooterRowDef="displayedColumns"></mat-footer-row>
+
+                </mat-table>
+
+
+                 <mat-card-actions> 
+                <button mat-raised-button color="primary" (click)="save();">SAVE</button>
+                <!--   <button mat-raised-button color="primary" type="submit">SAVE</button> -->
+                  </mat-card-actions> 
+            </div>
+          
+            <app-error-response [errorResponse]="errorResponse"></app-error-response>
+    </mat-card>
+    <!-- </form>  -->
+
+</div>

@@ -1,0 +1,33 @@
+<div class="report-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title class="label-card-title">Daily Game Sales Reports</mat-card-title>
+        </mat-card-header>
+        <span><br></span>
+        <form class="report-form" [formGroup]="reportForm" (submit)="viewReport();">
+            <mat-card-content>
+                
+                        <mat-card-subtitle class="label-store">
+                            <!-- Store : {{reportMaster.storeName}} -->
+                        </mat-card-subtitle>
+                                
+                        <mat-form-field class="report-full-width">
+                            <mat-select placeholder="Select Report" formControlName="reportField">
+                            <mat-option *ngFor="let report of reports" [value]="report.path" >{{ report.reportName }}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="reportForm.controls.reportField.hasError('required')"></mat-error>
+                        </mat-form-field>
+                        
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="picker1" placeholder="Transaction Date" formControlName="dateField">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+            </mat-card-content>
+            <div>
+                <button mat-stroked-button color="accent" class="btn-block" type="submit">Get Report</button>
+            </div>
+        </form>
+        <app-error-response [errorResponse]="errorResponse"></app-error-response>
+   </mat-card>
+</div>

@@ -1,0 +1,75 @@
+<div class="register-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title>Register a User for a Store</mat-card-title>
+        </mat-card-header>
+
+        <form class="register-form" [formGroup]="userRegisterForm" (submit)="registerUser();">
+            <mat-card-content>
+                <mat-form-field class="register-full-width">
+                    <mat-select placeholder="Select Store" formControlName="storeField"  
+                            (selectionChange)="storeChangeAction(stores)" >
+                      <mat-option *ngFor="let store of stores" [value]="store.id" >{{ store.storeName }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="userRegisterForm.controls.storeField.hasError('required')"></mat-error>
+                </mat-form-field>
+                <mat-form-field class="register-full-width">
+                    <input matInput required [formControlName]="'usernameField'" placeholder="UserName"
+                        ngDefaultControl>
+                    <mat-error *ngIf="userRegisterForm.controls.usernameField.hasError('required')"></mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="register-full-width">
+                    <input matInput required [formControlName]="'emailField'" placeholder="Email" ngDefaultControl>
+                    <mat-error *ngIf="userRegisterForm.controls.emailField.hasError('required')"></mat-error>
+                    <mat-error *ngIf="userRegisterForm.controls.emailField.hasError('pattern') && !userRegisterForm.controls.emailField.hasError('required')" 
+                            [innerHtml]="fieldEmailErrorInvalid"></mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="register-full-width">
+                    <input matInput required [formControlName]="'passwordField'" placeholder="Password"
+                        ngDefaultControl>
+                    <mat-error *ngIf="userRegisterForm.controls.passwordField.hasError('required')"></mat-error>
+                    <mat-error *ngIf="userRegisterForm.controls.passwordField.hasError('pattern') && !userRegisterForm.controls.passwordField.hasError('required')" 
+                                    [innerHTML]="fieldPasswordErrorInvalid"></mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="register-full-width">
+                    <input matInput required [formControlName]="'confirmpasswordField'" placeholder="Confirm Password"
+                        ngDefaultControl>
+                    <mat-error *ngIf="userRegisterForm.controls.confirmpasswordField.hasError('required')"> </mat-error>
+                    <mat-error *ngIf="userRegisterForm.controls.confirmpasswordField.hasError('pattern') && !userRegisterForm.controls.confirmpasswordField.hasError('required')" [innerHTML]="fieldPasswordErrorInvalid"></mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="register-full-width">
+                    <input matInput required [formControlName]="'phonenumberField'" placeholder="PhoneNumber"
+                        ngDefaultControl>
+                    <mat-error *ngIf="userRegisterForm.controls.phonenumberField.hasError('required')"></mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="register-full-width">
+                    <input matInput required [formControlName]="'firstnameField'" placeholder="FirstName"
+                        ngDefaultControl>
+                    <mat-error *ngIf="userRegisterForm.controls.firstnameField.hasError('required')"></mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="register-full-width">
+                    <input matInput required [formControlName]="'lastnameField'" placeholder="LastName"
+                        ngDefaultControl>
+                    <mat-error *ngIf="userRegisterForm.controls.lastnameField.hasError('required')"></mat-error>
+                </mat-form-field>
+
+            </mat-card-content>
+            <div>
+                 <button mat-stroked-button color="accent" class="btn-block" type="submit">register</button>
+            </div>
+        </form>
+        <app-error-response [errorResponse]="errorResponse"></app-error-response>
+        <!-- <div [class]="'sighnin-holder'">
+            <span [innerHTML]="registerd"></span>&#160;
+            <a [class]="'sighnon-link'" routerLink="/login" [innerHTML]="login"></a>
+        </div> -->
+    </mat-card>
+
+</div>

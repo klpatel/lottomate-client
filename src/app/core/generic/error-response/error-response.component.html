@@ -1,0 +1,10 @@
+<div class="error-response-holder {{className}}" *ngIf="errorResponse">
+	<div class="error-response-status">
+		<!-- {{ errorResponse.statusCode }}:  -->
+		Following {{className}}(s) found!
+	</div>
+	<div class="error-response-error" *ngFor="let error of errorResponse.errors">
+		<span *ngIf="showElement && error.element" class="error-response-element">{{ error.element }}:</span>
+		<span class="error-response-messsage">{{ error.message }}</span>
+	</div>
+</div>

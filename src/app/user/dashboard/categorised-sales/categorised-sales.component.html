@@ -1,0 +1,116 @@
+
+    <div class="sales-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+        <mat-card class="box">
+            <mat-card-header>
+                <mat-card-title class="label-card-title">Categorised Daily Sales</mat-card-title>
+            </mat-card-header>
+            <span><br></span>
+            <mat-card-content>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <mat-card-subtitle class="label-store">
+                            Store : {{catSalesMaster?.storeName}}
+                        </mat-card-subtitle>
+                    </div>
+                    <div fxLayout="column">
+                        <mat-card-subtitle class="label-container">
+                            User : {{userName}}
+                        </mat-card-subtitle>
+                        <mat-card-subtitle class="label-container">
+                            Last Updated : {{catSalesMaster?.transactionDate | date:'short'}}
+                        </mat-card-subtitle>
+                    </div>
+                </div>
+            </mat-card-content>
+            <div fxLayout="row">
+                <!-- Debit table -->
+                <div class="debit-game-container">
+                    <mat-table #table [dataSource]="debitDataSource">
+
+                        <!-- No Column  -->
+                        <ng-container matColumnDef="no">
+                            <mat-header-cell *matHeaderCellDef> No. </mat-header-cell> 
+                            <mat-cell *matCellDef="let element;let rowIdx = index;"> {{rowIdx+1}} </mat-cell>
+                            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                        </ng-container>
+
+                        <!-- Category Column -->
+                        <ng-container matColumnDef="categoryName">
+                            <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.categoryName}} </mat-cell>
+                            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                        </ng-container>
+
+                        <!-- Total Column -->
+                        <ng-container matColumnDef="total">
+                            <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+                            <mat-cell *matCellDef="let element;let index = index;">
+                                <mat-form-field floatLabel="never">
+                                    <!-- <input type="number" matInput [value]="element.total" required min="0"
+                                        [(ngModel)]="element.total"> -->
+                                        <input class="form-control" type="number" matInput [value]="element.total" required min="0"
+                                        [(ngModel)]="element.total" (click)="toggleEdit(index)" (keypress)="toggleEdit(index)"
+                                        [readonly]="editMode" >    
+                                </mat-form-field>
+                            </mat-cell>
+                            <mat-footer-cell *matFooterCellDef>
+                                Total: {{ calculateDebitTotal() | currency }}
+                            </mat-footer-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumnsDebit"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumnsDebit;"></mat-row>
+                        <mat-footer-row class="sticky-footer" *matFooterRowDef="displayedColumnsDebit"></mat-footer-row>
+
+                    </mat-table>
+                    
+                </div>
+
+                <!-- Credit table -->
+                <div class="credit-game-container">
+                    <mat-table #table [dataSource]="creditDataSource">
+
+                        <!-- No Column  -->
+                        <ng-container matColumnDef="no">
+                            <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+                            <mat-cell *matCellDef="let element;let rowIdx = index;"> {{rowIdx+1}} </mat-cell>
+                            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                        </ng-container>
+
+                        <!-- Category Column -->
+                        <ng-container matColumnDef="categoryName">
+                            <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.categoryName}} </mat-cell>
+                            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                        </ng-container>
+
+                        <!-- Total Column -->
+                        <ng-container matColumnDef="total">
+                            <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+                            <mat-cell *matCellDef="let element">
+                                <mat-form-field floatLabel="never">
+                                    <input type="number"  matInput [value]="element.total" 
+                                        required min="0"
+                                        [(ngModel)]="element.total">
+                                </mat-form-field>
+                            </mat-cell>
+                            <mat-footer-cell *matFooterCellDef>
+                                Total: {{ calculateCreditTotal() | currency }}
+                            </mat-footer-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumnsCredit"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumnsCredit;"></mat-row>
+                        <mat-footer-row class="sticky-footer" *matFooterRowDef="displayedColumnsCredit">
+                        </mat-footer-row>
+
+                    </mat-table>
+                </div>
+            </div>    
+            <div fxLayout="row">
+                <button mat-raised-button [disabled]="savingForm"  color="primary" (click)="save();">SAVE</button>    
+                <app-error-response [errorResponse]="errorResponse"></app-error-response>
+            </div>
+        </mat-card>
+    </div>

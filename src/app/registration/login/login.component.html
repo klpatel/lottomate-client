@@ -1,0 +1,37 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>Log in</mat-card-title>
+    </mat-card-header>
+
+    <form class="login-form" [formGroup]="loginForm" (keydown.enter)="login();" (submit)="login();">
+      <mat-card-content>
+        <mat-form-field class="login-full-width">
+          <input matInput required [formControlName]="'emailField'" placeholder="Username/Email" ngDefaultControl>
+          <mat-error *ngIf="loginForm.controls.emailField.hasError('required')" [innerHTML]="fieldEmailErrorRequired">
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="login-full-width">
+          <input matInput required [formControlName]="'passwordField'" placeholder="Password" ngDefaultControl
+            [type]="hide ? 'password' : 'text'">
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <mat-error *ngIf="loginForm.controls.passwordField.hasError('required')"
+            [innerHTML]="fieldPasswordErrorRequired"></mat-error>
+        </mat-form-field>
+
+        <mat-checkbox [class]="'login-remember-me'" [formControlName]="'rememberMeField'" ngDefaultControl>
+          {{rememberMe}}</mat-checkbox>
+      </mat-card-content>
+      <button mat-stroked-button color="accent" class="btn-block" type="submit">Log in</button>
+    </form>
+
+    <app-error-response [errorResponse]="errorResponse"></app-error-response>
+    <div [class]="'sighnon-holder'">
+      <span [innerHTML]="notRegisterd"></span>&#160;
+      <a [class]="'sighnon-link'" routerLink="/signon" [innerHTML]="signon"></a>
+    </div>
+  </mat-card>
+
+</div>

@@ -1,0 +1,29 @@
+<mat-toolbar color="primary">
+
+    <button mat-button class="sidenav-toggle" (click)="toggleSidenav.emit()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    
+    <span class="account"></span>
+    <button  mat-icon-button [matMenuTriggerFor]="account">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  
+    <mat-menu #account="matMenu" [overlapTrigger]="false">
+      <button mat-menu-item>
+        <mat-icon>person</mat-icon>
+        <span>{{username}}</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>videocam</mat-icon>
+        <span>Let's talk</span>
+      </button>
+      <button mat-menu-item (click)="logout();">
+        <mat-icon>exit_to_app </mat-icon>
+        <span>LogOff</span>
+      </button>
+    </mat-menu>
+  
+    <span>Lottomate</span>
+</mat-toolbar>
+

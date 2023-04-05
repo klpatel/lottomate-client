@@ -1,0 +1,69 @@
+<div class="signon-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title>Signup by entering the information below</mat-card-title>
+        </mat-card-header>
+
+        <form class="signon-form" [formGroup]="signonForm" (submit)="signon();">
+            <mat-card-content>
+
+                <mat-form-field class="signon-full-width">
+                    <input matInput required [formControlName]="'usernameField'" placeholder="UserName"
+                        ngDefaultControl>
+                    <mat-error *ngIf="signonForm.controls.usernameField.hasError('required')"></mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="signon-full-width">
+                    <input matInput required [formControlName]="'emailField'" placeholder="Email" ngDefaultControl>
+                    <mat-error *ngIf="signonForm.controls.emailField.hasError('required')"></mat-error>
+                    <mat-error *ngIf="signonForm.controls.emailField.hasError('pattern') && !signonForm.controls.emailField.hasError('required')" 
+                            [innerHtml]="fieldEmailErrorInvalid"></mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="signon-full-width">
+                    <input matInput required [formControlName]="'passwordField'" placeholder="Password"
+                        ngDefaultControl>
+                    <mat-error *ngIf="signonForm.controls.passwordField.hasError('required')"></mat-error>
+                    <mat-error *ngIf="signonForm.controls.passwordField.hasError('pattern') && !signonForm.controls.passwordField.hasError('required')" 
+                                    [innerHTML]="fieldPasswordErrorInvalid"></mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="signon-full-width">
+                    <input matInput required [formControlName]="'confirmpasswordField'" placeholder="Confirm Password"
+                        ngDefaultControl>
+                    <mat-error *ngIf="signonForm.controls.confirmpasswordField.hasError('required')"> </mat-error>
+                    <mat-error *ngIf="signonForm.controls.confirmpasswordField.hasError('pattern') && !signonForm.controls.confirmpasswordField.hasError('required')" [innerHTML]="fieldPasswordErrorInvalid"></mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="signon-full-width">
+                    <input matInput required [formControlName]="'phonenumberField'" placeholder="PhoneNumber"
+                        ngDefaultControl>
+                    <mat-error *ngIf="signonForm.controls.phonenumberField.hasError('required')"></mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="signon-full-width">
+                    <input matInput required [formControlName]="'firstnameField'" placeholder="FirstName"
+                        ngDefaultControl>
+                    <mat-error *ngIf="signonForm.controls.firstnameField.hasError('required')"></mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="signon-full-width">
+                    <input matInput required [formControlName]="'lastnameField'" placeholder="LastName"
+                        ngDefaultControl>
+                    <mat-error *ngIf="signonForm.controls.lastnameField.hasError('required')"></mat-error>
+                </mat-form-field>
+
+            </mat-card-content>
+            <div>
+                 <button mat-stroked-button color="accent" class="btn-block" type="submit">SignOn</button>
+            </div>
+        </form>
+        <app-error-response [errorResponse]="errorResponse"></app-error-response>
+        <div [class]="'sighnin-holder'">
+            <span [innerHTML]="registerd"></span>&#160;
+            <a [class]="'sighnon-link'" routerLink="/login" [innerHTML]="login"></a>
+        </div>
+    </mat-card>
+
+</div>

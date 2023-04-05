@@ -1,0 +1,34 @@
+.error-response-holder.error,
+.error-response-holder.warning,
+.error-response-holder.message {
+	padding-top: 16px;
+	text-align: start;
+	word-break: break-word;
+}
+
+.error-response-holder.error {
+	color: red;
+}
+
+.error-response-holder.warning {
+	color: darkorange;
+}
+
+.error-response-holder.message {
+	color: blue;
+}
+
+.error-response-status {
+	font-weight: 500;
+	margin-bottom: 10px;
+	border-bottom: 1px solid;
+}
+
+.error-response-error {
+	padding-bottom: 10px;
+}
+
+.error-response-error .error-response-element {
+	margin-right: 5px;
+	border-bottom: 1px solid;
+}

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #4a1fe0;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="icon_dashboard" class="cls-1" d="M262,262V539.732H484.608V262H262Zm277.3,0V428.859H762V262H539.3ZM762,484.157V762H539.3V484.157H762ZM484.608,594.873V762H262V594.873H484.608Z" transform="translate(-262 -262)"/>
+</svg>
